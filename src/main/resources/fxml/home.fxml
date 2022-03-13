@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="homePane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
@@ -18,7 +21,7 @@
                   <MenuItem mnemonicParsing="false" text="Save" />
                   <CheckMenuItem mnemonicParsing="false" text="Autosave" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" styleClass="menuItem" text="Close" onAction="#onLogoutMenuClick"/>
+                  <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
@@ -36,6 +39,15 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Label fx:id="myLabel" layoutX="566.0" layoutY="391.0" text="Hello JavaFX" />
+      <TextField fx:id="txtFieldApp" layoutX="143.0" layoutY="304.0" prefHeight="26.0" prefWidth="420.0" />
+      <Button fx:id="selectAppBtn" layoutX="143.0" layoutY="265.0" mnemonicParsing="false" onAction="#onSelectApplicationButton" text="Select Application" />
+      <Label layoutX="143.0" layoutY="229.0" text="Press the select button to enter the application path:" />
+      <TextField fx:id="txtFieldOutput" layoutX="143.0" layoutY="452.0" prefHeight="26.0" prefWidth="420.0" />
+      <Button fx:id="selectOutputBtn" layoutX="143.0" layoutY="413.0" mnemonicParsing="false" onAction="#onSelectOutputButton" text="Select Output Directoty" />
+      <Label layoutX="143.0" layoutY="377.0" text="Press the select button to enter the output directory:" />
+      <Label layoutX="143.0" layoutY="135.0" text="Select type of file for analysis " />
+      <ChoiceBox fx:id="typesChoiceBox" layoutX="146.0" layoutY="153.0" prefWidth="150.0" />
+      <Button layoutX="882.0" layoutY="265.0" mnemonicParsing="false" onAction="#onLoadFilesButton" text="Load" />
+      <Label layoutX="882.0" layoutY="238.0" text="Load file(s)" />
    </children>
 </AnchorPane>
