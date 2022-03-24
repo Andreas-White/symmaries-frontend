@@ -9,7 +9,6 @@ import javafx.stage.FileChooser;
 import logic.tool.GraphicalUIHelper;
 
 import java.io.File;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ConfigController extends GeneraMethodsController {
 
@@ -68,13 +67,7 @@ public class ConfigController extends GeneraMethodsController {
         return taintRadBtn.isSelected();
     }
 
-    public void   getNewGraphicalUIHelper(GraphicalUIHelper graphicalUIHelper) {
-        setGraphicalUIHelper(graphicalUIHelper);
-    }
-
     public void onInputGeneratorButton() {
-        if (getGraphicalUIHelper() == null) System.out.println("No graphicalUIHelper");
-        System.out.println("in generate");
         getGraphicalUIHelper().setSourcesAndSinksPath(sourcesAndSinksFilePath);
         getGraphicalUIHelper().setSecsumFilePath(secstubsFilePath);
         getGraphicalUIHelper().setSymmariesPath("C:\\Users\\PC\\Desktop\\Project_Degree\\samples\\symmaries\\JisymCompiler.jar");

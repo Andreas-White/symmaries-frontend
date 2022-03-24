@@ -137,10 +137,6 @@ public class HomeController extends GeneraMethodsController implements Initializ
         System.out.println("in load");
 
         String fxmlPath = "/fxml/config.fxml";
-
-        ConfigController controller = new FXMLLoader(getClass().getResource(fxmlPath)).getController();
-        controller.getNewGraphicalUIHelper(graphicalUIHelper);
-
         initialiseStage(event, fxmlPath);
         stage.setTitle("Configurations");
     }

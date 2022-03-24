@@ -22,7 +22,7 @@ import java.util.Objects;
 public class GeneraMethodsController {
 
     protected Stage stage;
-    private GraphicalUIHelper graphicalUIHelper;
+    private static GraphicalUIHelper graphicalUIHelper;
 
     private boolean isJarFile;
     private boolean isApkFile;
