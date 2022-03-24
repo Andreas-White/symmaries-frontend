@@ -30,7 +30,8 @@ public class JavaApplicationHelper extends Tool {
 	 * @param taintChecking 
 	 */
 	void buildConfigurationForJavaApplication( String appPath, String targetFolder,
-			String[] requiredClassesPaths, String secsumfilePath, String xmlScrSinkPath, boolean exceptionEnabeled, String symmariesPath, 
+			String[] requiredClassesPaths, String secsumfilePath, String xmlScrSinkPath,
+											   boolean exceptionEnabeled, String symmariesPath,
 			String commadFilePath, int methodSkipParameter, boolean taintChecking) {
 		configurations.inputPath = appPath;
 		configurations.targetPath = targetFolder;
@@ -68,7 +69,8 @@ public class JavaApplicationHelper extends Tool {
 		}
 
 		buildConfigurationForJavaApplication(appPath, targetFolder, new String[] { appPath },
-				secsumfilePath, xmlScrSinkPath, exceptionEnabeled, symmariesPath, commadFilePath, methodSkipParameter,taintChecking);
+				secsumfilePath, xmlScrSinkPath, exceptionEnabeled, symmariesPath, commadFilePath,
+				methodSkipParameter,taintChecking);
 		if(generateSCGSInputs) {
 			Utils.log(this.getClass(), "Loading the tool with:" + configurations.inputPath);
 			if(start("", null)) {

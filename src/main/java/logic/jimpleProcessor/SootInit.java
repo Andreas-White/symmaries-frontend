@@ -77,17 +77,17 @@ public class SootInit {
 		return;
 	}
 
-	public static void extractSourceMethodNamesFromSourcesSinksFile(SetupApplication setupApplication) {
-		Iterator<SourceSinkDefinition> sinkIterator = setupApplication.getSources().iterator();
-		while (sinkIterator.hasNext()) {
-			SourceSinkDefinition resultSink = sinkIterator.next();
-			if (resultSink instanceof MethodSourceSinkDefinition) {
-				MethodSourceSinkDefinition methodSink = (MethodSourceSinkDefinition) resultSink;
-				sourceMethodNames.add(methodSink.getMethod().getClassName() + methodSink.getMethod().getMethodName());
-			}
-		}
-		return;
-	}
+//	public static void extractSourceMethodNamesFromSourcesSinksFile(SetupApplication setupApplication) {
+//		Iterator<SourceSinkDefinition> sinkIterator = setupApplication.getSources().iterator();
+//		while (sinkIterator.hasNext()) {
+//			SourceSinkDefinition resultSink = sinkIterator.next();
+//			if (resultSink instanceof MethodSourceSinkDefinition) {
+//				MethodSourceSinkDefinition methodSink = (MethodSourceSinkDefinition) resultSink;
+//				sourceMethodNames.add(methodSink.getMethod().getClassName() + methodSink.getMethod().getMethodName());
+//			}
+//		}
+//		return;
+//	}
 
 	public static void initSootForApk(String[] requiredClassesPaths2, String apk, String sourcesSinks, String callbacks) throws IOException, XmlPullParserException {
 		SetupApplication setupApp = new SetupApplication(requiredClassesPaths2[0], apk);
@@ -184,6 +184,10 @@ public class SootInit {
 		Options.v().set_whole_program(true);
 		// enableSpark();
 		// Options.v().setPhaseOption("cg.spark verbose:true", "on");
+		System.out.println(System.getProperty("java.home"));
+		System.setProperty("java.home","C:\\Users\\PC\\Desktop\\dist");
+		System.out.println(System.getProperty("java.home"));
+		File file = new File("C:\\Users\\PC\\Desktop\\Project_Degree\\out\\jarContent");
 		Utils.log(SootInit.class, "Soot class path:\n " + Scene.v().getSootClassPath());
 		Scene.v().getSootClassPath();
 		// Scene.v().extendSootClassPath(requiredClassesPaths);

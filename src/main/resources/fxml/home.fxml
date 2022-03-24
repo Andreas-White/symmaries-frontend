@@ -26,10 +26,15 @@
             </Menu>
             <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
                <items>
-                  <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" styleClass="menuItem" text="Login" />
-                  <MenuItem fx:id="menuItemScene2" mnemonicParsing="false" styleClass="menuItem" text="Scene 2" />
-                  <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" styleClass="menuItem" text="Scene 3" />
-                  <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" styleClass="menuItem" text="Scene 4" />
+                  <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLogin"
+                            styleClass="menuItem"
+                            text="Login"/>
+                  <MenuItem fx:id="menuItemScene2" mnemonicParsing="false" onAction="#getToScene2"
+                            styleClass="menuItem" text="Scene 2"/>
+                  <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToScene3"
+                            styleClass="menuItem" text="Scene 3"/>
+                  <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
+                            styleClass="menuItem" text="Scene 4"/>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" styleClass="menu" text="Help">
