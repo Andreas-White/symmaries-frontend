@@ -28,6 +28,9 @@ public class GeneraMethodsController {
     private boolean isApkFile;
     private boolean isJavaProjectDirectory;
 
+    @FXML
+    private MenuItem menuItemLogin, menuItemConfig, menuItemScene3, menuItemScene4;
+
     public GeneraMethodsController() {
     }
 
@@ -63,10 +66,14 @@ public class GeneraMethodsController {
         isJavaProjectDirectory = javaProjectDirectory;
     }
 
-    @FXML
-    private MenuItem menuItemLogin, menuItemScene2, menuItemScene3, menuItemScene4;
-
-    public void initialiseStage(ActionEvent event, String fxmlPath ) {
+    /**
+     * Initialise the primary stage, used to load different stages and other files like css.
+     * It is triggered on button action
+     *
+     * @param event    the event triggered by the button action
+     * @param fxmlPath the fxml file path to be loaded
+     */
+    public void initialiseStage(ActionEvent event, String fxmlPath) {
 
         try {
             URL fxmlLocation = getClass().getResource(fxmlPath);
@@ -85,16 +92,23 @@ public class GeneraMethodsController {
         }
     }
 
+    /**
+     * Initialise the primary stage, used to load different stages and other files like css.
+     * It is triggered on menu-item action.
+     *
+     * @param fxmlPath the fxml file path to be loaded
+     * @param menuItem the event triggered by the menu-item action
+     */
     public void initialiseStageFromMenuItem(String fxmlPath, MenuItem menuItem) {
 
         try {
             URL fxmlLocation = getClass().getResource(fxmlPath);
-            String cssLocation = Objects.requireNonNull(getClass().getResource("src/main/resources/css/style.css")).toExternalForm();
+            String cssLocation = Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm();
 
             assert fxmlLocation != null;
             Parent root = FXMLLoader.load(fxmlLocation);
 
-            stage = (Stage)menuItem.getParentPopup().getOwnerWindow();
+            stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(cssLocation);
             stage.setScene(scene);
@@ -104,6 +118,12 @@ public class GeneraMethodsController {
         }
     }
 
+    /**
+     * Implements the logout functionality and alerts the user
+     * Works with exit button and Alt+F4
+     *
+     * @param scene
+     */
     public void logout(Pane scene) {
         try {
 
@@ -122,27 +142,39 @@ public class GeneraMethodsController {
         }
     }
 
+    /**
+     * Gets to the Load Project pane
+     */
     @FXML
-    public void getToLogin() {
-        String fxmlPath = "/com/example/hellofx/hello-view.fxml";
+    public void getToLoadProject() {
+        String fxmlPath = "/fxml/home.fxml";
         initialiseStageFromMenuItem(fxmlPath, menuItemLogin);
     }
 
+    /**
+     * Gets to the Configuration pane
+     */
     @FXML
-    public void getToScene2() {
-        String fxmlPath = "/com/example/hellofx/fxml/scene2.fxml";
-        initialiseStageFromMenuItem(fxmlPath, menuItemScene2);
+    public void getToConfig() {
+        String fxmlPath = "/fxml/config.fxml";
+        initialiseStageFromMenuItem(fxmlPath, menuItemConfig);
     }
 
+    /**
+     * To be implemented
+     */
     @FXML
     public void getToScene3() {
-        String fxmlPath = "/com/example/hellofx/fxml/scene3.fxml";
+        String fxmlPath = "/fxml/scene3.fxml";
         initialiseStageFromMenuItem(fxmlPath, menuItemScene3);
     }
 
+    /**
+     * To be implemented
+     */
     @FXML
     public void getToScene4() {
-        String fxmlPath = "/com/example/hellofx/fxml/scene4.fxml";
+        String fxmlPath = "/fxml/scene4.fxml";
         initialiseStageFromMenuItem(fxmlPath, menuItemScene4);
     }
 

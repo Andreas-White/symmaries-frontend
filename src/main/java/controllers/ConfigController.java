@@ -6,7 +6,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import logic.tool.GraphicalUIHelper;
 
 import java.io.File;
 
@@ -28,18 +27,32 @@ public class ConfigController extends GeneraMethodsController {
     @FXML
     private Slider parameterSlider;
 
+    /**
+     * Loads the secstubs file
+     */
     public void onSelectSecstubsFileButton() {
         String title = "Select the .secstubs file";
         secstubsFilePath = getFilePath(title, txtFieldSecstubsFile, new FileChooser.ExtensionFilter("secstubs",
                 "*.secstubs"));
     }
 
+    /**
+     * Loads the xml file for the Sources and Sinks
+     */
     public void onSelectSourcesAndSinksFileButton() {
         String title = "Select the Sources and Sinks xml file";
         sourcesAndSinksFilePath = getFilePath(title, txtFieldSourcesAndSinks, new FileChooser.ExtensionFilter("Sources and Sinks file",
                 "*.xml"));
     }
 
+    /**
+     * Gets the file path of the loaded file
+     *
+     * @param title           a String for displaying information to the user on FileChooser
+     * @param textField       the TextField that displays the path of the loaded file
+     * @param extensionFilter the file extension to restrict the available type of files
+     * @return a String for the path of the loaded file
+     */
     private String getFilePath(String title,
                                TextField textField,
                                FileChooser.ExtensionFilter extensionFilter) {
@@ -53,20 +66,39 @@ public class ConfigController extends GeneraMethodsController {
         return "Incorrect file path";
     }
 
+    /**
+     * Gets the value of slider
+     *
+     * @return an Integer
+     */
     private Integer getMethodSkipParameter() {
         parameterSlider.valueProperty()
                 .addListener((observableValue, number, t1) -> methodSkipParameter = ((int) parameterSlider.getValue()));
         return methodSkipParameter;
     }
 
+    /**
+     * Checks if the exception radio button is selected
+     *
+     * @return true if it is selected
+     */
     public boolean onExceptionSelected() {
         return exceptionsRadBtn.isSelected();
     }
 
+    /**
+     * Checks if the taint radio button is selected
+     *
+     * @return true if it is selected
+     */
     public boolean onTaintSelection() {
         return taintRadBtn.isSelected();
     }
 
+    /**
+     * Sets sources and sinks file path, secstubs file path, method skip parameter, exception and taint. Then runs
+     * Input Generator
+     */
     public void onInputGeneratorButton() {
         getGraphicalUIHelper().setSourcesAndSinksPath(sourcesAndSinksFilePath);
         getGraphicalUIHelper().setSecsumFilePath(secstubsFilePath);
@@ -77,6 +109,9 @@ public class ConfigController extends GeneraMethodsController {
         getGraphicalUIHelper().runInputGenerator();
     }
 
+    /**
+     * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
+     */
     public void onLogoutMenuClick() {
         logout(configPane);
     }

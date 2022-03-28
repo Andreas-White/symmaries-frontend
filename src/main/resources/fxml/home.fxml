@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="homePane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<AnchorPane fx:id="loadPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
       <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <menus>
@@ -26,11 +17,11 @@
             </Menu>
             <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
                <items>
-                  <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLogin"
+                  <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject"
                             styleClass="menuItem"
-                            text="Login"/>
-                  <MenuItem fx:id="menuItemScene2" mnemonicParsing="false" onAction="#getToScene2"
-                            styleClass="menuItem" text="Scene 2"/>
+                            text="Load Project"/>
+                  <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
+                            styleClass="menuItem" text="Configurations"/>
                   <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToScene3"
                             styleClass="menuItem" text="Scene 3"/>
                   <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"

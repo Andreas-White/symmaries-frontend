@@ -3,6 +3,9 @@ import logic.tool.GraphicalUIHelper;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * Only used for testing the logic, specifically the soot functionality
+ */
 public class NewMain {
 
     public static void main(String[] args) {

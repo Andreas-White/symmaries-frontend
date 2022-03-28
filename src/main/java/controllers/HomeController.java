@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -18,7 +17,7 @@ import java.util.ResourceBundle;
 public class HomeController extends GeneraMethodsController implements Initializable {
 
     @FXML
-    private AnchorPane homePane;
+    private AnchorPane loadPane;
 
     @FXML
     private TextField txtFieldApp;
@@ -41,7 +40,7 @@ public class HomeController extends GeneraMethodsController implements Initializ
      * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
      */
     public void onLogoutMenuClick() {
-        logout(homePane);
+        logout(loadPane);
     }
 
     /**
