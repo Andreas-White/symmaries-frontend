@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="configPane" prefHeight="800.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/17" fx:controller="controllers.ConfigController">
+<?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            fx:id="resultsPane"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ResultsController"
+            prefHeight="400.0" prefWidth="600.0">
     <children>
         <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0"
                  AnchorPane.rightAnchor="0.0">
@@ -38,22 +45,14 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TextField fx:id="txtFieldSourcesAndSinks" layoutX="125.0" layoutY="195.0" prefHeight="26.0" prefWidth="420.0"/>
-        <Button fx:id="selectSourcesAndSinksFileBtn" layoutX="125.0" layoutY="156.0" mnemonicParsing="false"
-                onAction="#onSelectSourcesAndSinksFileButton" text="Select Sources and Sinks"/>
-        <Label layoutX="125.0" layoutY="120.0"
-               text="Press the select button to enter the xml file with sources and sinks:"/>
-        <TextField fx:id="txtFieldSecstubsFile" layoutX="684.0" layoutY="195.0" prefHeight="26.0" prefWidth="420.0"/>
-        <Button fx:id="selectSecstubsFileBtn" layoutX="684.0" layoutY="156.0" mnemonicParsing="false"
-                onAction="#onSelectSecstubsFileButton" text="Select .secstubs file"/>
-        <Label layoutX="684.0" layoutY="120.0" text="Press the select button to enter the .secstubs file:"/>
-        <Button fx:id="generateBtn" layoutX="571.0" layoutY="570.0" mnemonicParsing="false"
-                onAction="#onInputGeneratorButton" text="Generate"/>
-        <RadioButton fx:id="exceptionsRadBtn" layoutX="125.0" layoutY="284.0" mnemonicParsing="false"
-                     onAction="#onExceptionSelected" text="Exceptions"/>
-        <RadioButton fx:id="taintRadBtn" layoutX="315.0" layoutY="284.0" mnemonicParsing="false"
-                     onAction="#onTaintSelection" text="Taint"/>
-        <Slider fx:id="parameterSlider" layoutX="125.0" layoutY="361.0" majorTickUnit="20.0" max="200.0"
-                minorTickCount="10" prefHeight="38.0" prefWidth="420.0" showTickLabels="true"/>
+        <TreeView fx:id="myTreeView" layoutX="170.0" layoutY="76.0" onContextMenuRequested="#selectItem"
+                  onMouseClicked="#selectItem" prefHeight="247.0" prefWidth="260.0"/>
+        <Label fx:id="myLabel" alignment="CENTER" layoutY="34.0" prefHeight="26.0" prefWidth="600.0"
+               text="Select a Folder">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
     </children>
+
 </AnchorPane>

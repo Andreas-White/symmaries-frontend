@@ -164,8 +164,8 @@ public class GeneraMethodsController {
      * To be implemented
      */
     @FXML
-    public void getToScene3() {
-        String fxmlPath = "/fxml/scene3.fxml";
+    public void getToResults() {
+        String fxmlPath = "/fxml/results.fxml";
         initialiseStageFromMenuItem(fxmlPath, menuItemScene3);
     }
 

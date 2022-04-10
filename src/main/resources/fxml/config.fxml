@@ -25,8 +25,8 @@
                                   styleClass="menuItem" text="Load Project"/>
                         <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
                                   styleClass="menuItem" text="Configurations"/>
-                        <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToScene3"
-                                  styleClass="menuItem" text="Scene 3"/>
+                        <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToResults"
+                                  styleClass="menuItem" text="Results"/>
                         <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
                                   styleClass="menuItem" text="Scene 4"/>
                     </items>
