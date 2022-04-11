@@ -7,7 +7,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -40,34 +39,24 @@ public class ResultsController extends GeneraMethodsController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        URL imgLocation1 = getClass().getResource("images/folder.png");
-        URL imgLocation2 = getClass().getResource("images/picture_folder.png");
-        URL imgLocation3 = getClass().getResource("images/video_folder.png");
-        URL imgLocation4 = getClass().getResource("images/music_folder.png");
+        URL packageIconLocation = getClass().getResource("/images/package_icon.png");
+        URL fileIconLocation = getClass().getResource("/images/java_icon.png");
+        URL methodIconLocation = getClass().getResource("/images/method_icon.png");
 
-        TreeItem<String> rootItem = new TreeItem<>("Documents", new ImageView(new Image(String.valueOf(imgLocation2))));
+        Image packageIcon = new Image(String.valueOf(packageIconLocation));
+        Image fileIcon = new Image(String.valueOf(fileIconLocation));
+        Image methodIcon = new Image(String.valueOf(methodIconLocation));
 
-        TreeItem<String> picturesBranchItem = new TreeItem<>("Pictures", new ImageView(new Image(String.valueOf(imgLocation2))));
-        TreeItem<String> videosBranchItem = new TreeItem<>("Videos", new ImageView(new Image(String.valueOf(imgLocation3))));
-        TreeItem<String> musicBranchItem = new TreeItem<>("Music", new ImageView(new Image(String.valueOf(imgLocation4))));
+        TreeItem<String> rootItem = new TreeItem<>("Root", new ImageView(packageIcon));
 
-        TreeItem<String> innerPicturesBranchItem1 = new TreeItem<>("2022", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerPicturesBranchItem2 = new TreeItem<>("2021", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerPicturesBranchItem3 = new TreeItem<>("2020", new ImageView(new Image(String.valueOf(imgLocation1))));
+        TreeItem<String> packageItem = new TreeItem<>("Package", new ImageView(packageIcon));
+        TreeItem<String> fileItem = new TreeItem<>("Java File", new ImageView(fileIcon));
+        TreeItem<String> methodItem = new TreeItem<>("Java Method", new ImageView(methodIcon));
 
-        TreeItem<String> innerVideosBranchItem1 = new TreeItem<>("Anime", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerVideosBranchItem2 = new TreeItem<>("Movies", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerVideosBranchItem3 = new TreeItem<>("Shorts", new ImageView(new Image(String.valueOf(imgLocation1))));
+        fileItem.getChildren().addAll(methodItem);
+        packageItem.getChildren().addAll(fileItem);
 
-        TreeItem<String> innerMusicBranchItem1 = new TreeItem<>("Metal", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerMusicBranchItem2 = new TreeItem<>("Rock n' Roll", new ImageView(new Image(String.valueOf(imgLocation1))));
-        TreeItem<String> innerMusicBranchItem3 = new TreeItem<>("Hip-Hop", new ImageView(new Image(String.valueOf(imgLocation1))));
-
-        picturesBranchItem.getChildren().addAll(innerPicturesBranchItem1, innerPicturesBranchItem2, innerPicturesBranchItem3);
-        videosBranchItem.getChildren().addAll(innerVideosBranchItem1, innerVideosBranchItem2, innerVideosBranchItem3);
-        musicBranchItem.getChildren().addAll(innerMusicBranchItem1, innerMusicBranchItem2, innerMusicBranchItem3);
-
-        rootItem.getChildren().addAll(picturesBranchItem, videosBranchItem, musicBranchItem);
+        rootItem.getChildren().addAll(packageItem);
 
 //        myTreeView.setShowRoot(false);    // for not showing the root
         myTreeView.setRoot(rootItem);

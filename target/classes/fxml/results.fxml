@@ -1,56 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            fx:id="resultsPane"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.ResultsController"
-            prefHeight="400.0" prefWidth="600.0">
+
+<AnchorPane fx:id="resultsPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResultsController">
     <children>
-        <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0">
+        <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <menus>
                 <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="menu" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Save"/>
-                        <CheckMenuItem mnemonicParsing="false" text="Autosave"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem"
-                                  text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <CheckMenuItem mnemonicParsing="false" text="Autosave" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem" text="Close" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
                     <items>
-                        <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject"
-                                  styleClass="menuItem" text="Load Project"/>
-                        <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
-                                  styleClass="menuItem" text="Configurations"/>
-                        <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToResults"
-                                  styleClass="menuItem" text="Results"/>
-                        <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
-                                  styleClass="menuItem" text="Scene 4"/>
+                        <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject" styleClass="menuItem" text="Load Project" />
+                        <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig" styleClass="menuItem" text="Configurations" />
+                        <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToResults" styleClass="menuItem" text="Results" />
+                        <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4" styleClass="menuItem" text="Scene 4" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="menu" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" styleClass="menuItem" text="About"/>
+                        <MenuItem mnemonicParsing="false" styleClass="menuItem" text="About" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <TreeView fx:id="myTreeView" layoutX="170.0" layoutY="76.0" onContextMenuRequested="#selectItem"
-                  onMouseClicked="#selectItem" prefHeight="247.0" prefWidth="260.0"/>
-        <Label fx:id="myLabel" alignment="CENTER" layoutY="34.0" prefHeight="26.0" prefWidth="600.0"
-               text="Select a Folder">
+        <TreeView fx:id="myTreeView" layoutX="170.0" layoutY="76.0" onContextMenuRequested="#selectItem" onMouseClicked="#selectItem" prefHeight="651.0" prefWidth="441.0" />
+        <Label fx:id="myLabel" alignment="CENTER" layoutY="34.0" prefHeight="26.0" prefWidth="600.0" text="Select a Folder">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Label>
     </children>
