@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.helpers.HelperMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -9,7 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResultsController extends GeneraMethodsController implements Initializable {
@@ -51,9 +55,22 @@ public class ResultsController extends GeneraMethodsController implements Initia
 
         TreeItem<String> packageItem = new TreeItem<>("Package", new ImageView(packageIcon));
         TreeItem<String> fileItem = new TreeItem<>("Java File", new ImageView(fileIcon));
-        TreeItem<String> methodItem = new TreeItem<>("Java Method", new ImageView(methodIcon));
 
-        fileItem.getChildren().addAll(methodItem);
+        HelperMethods helperMethods = new HelperMethods();
+        List<String> methodNames = new ArrayList<>();
+        try {
+            methodNames = helperMethods.displayFilesWithSpecificExt("-secsum");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String methodName: methodNames) {
+            TreeItem<String> methodItem = new TreeItem<>(methodName, new ImageView(methodIcon));
+            fileItem.getChildren().addAll(methodItem);
+        }
+//        TreeItem<String> methodItem = new TreeItem<>("Java Method", new ImageView(methodIcon));
+
+//        fileItem.getChildren().addAll(methodItem);
         packageItem.getChildren().addAll(fileItem);
 
         rootItem.getChildren().addAll(packageItem);

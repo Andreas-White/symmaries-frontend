@@ -45,6 +45,8 @@ public class HelperMethods {
                     .collect(Collectors.toList());
         }
 
-        return result;
+        List<String> newResults = result.stream()
+                .map(str -> str.split("\\.")[str.split("\\.").length -2]).toList();
+        return newResults;
     }
 }
