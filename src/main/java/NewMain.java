@@ -1,7 +1,12 @@
 import logic.tool.GraphicalUIHelper;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.core.config.Configurator;
 
 import java.io.File;
 import java.net.URL;
+
+import static org.apache.logging.log4j.Level.DEBUG;
 
 /**
  * Only used for testing the logic, specifically the soot functionality
@@ -20,6 +25,11 @@ public class NewMain {
         File fileJce = new File("C:\\Users\\PC\\Desktop\\dist\\lib\\jce.jar");
         File fileRt = new File("C:\\Users\\PC\\Desktop\\dist\\jre\\lib\\rt.jar");
         File txt = new File("C:\\Users\\PC\\Desktop\\dist\\jre\\lib\\test.txt");
+
+        String log4jConfigFile = "C:\\Users\\PC\\IdeaProjects\\symmaries_frontend\\log4j.properties";
+        PropertyConfigurator.configure(log4jConfigFile);
+        Configurator.setAllLevels(LogManager.getRootLogger().getName(), DEBUG);
+
 
         if (fileJce.exists() && fileRt.exists()) {
             System.out.println("it exists");

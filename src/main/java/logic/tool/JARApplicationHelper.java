@@ -181,8 +181,8 @@ public class JARApplicationHelper extends JavaApplicationHelper {
 		if (Utils.uncompressZipFile(jarFilePath.getAbsolutePath(), jarContentPath, ".class")) {
 			//String classesFilePath = this.findClassesFolder(jarContentPath);
 			//System.err.println(jarFilePath + "," + classesFilePath);
-			boolean hasWebInf = new File(jarContentPath + File.separator + "/WEB-INF/classes/").exists();				
-			String classesFilePath = jarContentPath + File.separator + (hasWebInf?"/WEB-INF/classes/":
+			boolean hasWebInf = new File(jarContentPath + File.separator + "/WEB-INF/classes/").exists();
+			String classesFilePath = jarContentPath + (hasWebInf? File.separator + "/WEB-INF/classes/":
 				(classesFolderMap!=null && classesFolderMap.get(jarFilePath.getName())!=null?
 						classesFolderMap.get(jarFilePath.getName()):""));
 			loadSingleJavaApplicationIntoSoot(classesFilePath, targetPath);

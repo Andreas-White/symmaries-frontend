@@ -187,7 +187,7 @@ public class SootInit {
 		System.out.println(System.getProperty("java.home"));
 		System.setProperty("java.home","C:\\Users\\PC\\Desktop\\dist");
 		System.out.println(System.getProperty("java.home"));
-		File file = new File("C:\\Users\\PC\\Desktop\\Project_Degree\\out\\jarContent");
+//		File file = new File("C:\\Users\\PC\\Desktop\\Project_Degree\\out\\jarContent");
 		Utils.log(SootInit.class, "Soot class path:\n " + Scene.v().getSootClassPath());
 		Scene.v().getSootClassPath();
 		// Scene.v().extendSootClassPath(requiredClassesPaths);
@@ -196,6 +196,8 @@ public class SootInit {
 
 		Scene.v().loadNecessaryClasses();
 		Scene.v().loadDynamicClasses();
+
+		int x = 5;
 	}
 
 	/*public static void setSootOptions(Options options, List<String> libraries) {

@@ -2,54 +2,48 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="loadPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.HomeController">
-    <children>
-        <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0">
-            <menus>
-                <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="menu" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Save"/>
-                        <CheckMenuItem mnemonicParsing="false" text="Autosave"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem"
-                                  text="Close"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
-                    <items>
-                        <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject"
-                                  styleClass="menuItem"
-                                  text="Load Project"/>
-                        <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
-                                  styleClass="menuItem" text="Configurations"/>
-                        <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToResults"
-                                  styleClass="menuItem" text="Results"/>
-                        <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
-                                  styleClass="menuItem" text="Scene 4"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" styleClass="menu" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" styleClass="menuItem" text="About"/>
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <TextField fx:id="txtFieldApp" layoutX="143.0" layoutY="304.0" prefHeight="26.0" prefWidth="420.0"/>
-        <Button fx:id="selectAppBtn" layoutX="143.0" layoutY="265.0" mnemonicParsing="false"
-                onAction="#onSelectApplicationButton" text="Select Application"/>
-        <Label layoutX="143.0" layoutY="229.0" text="Press the select button to enter the application path:"/>
-        <TextField fx:id="txtFieldOutput" layoutX="143.0" layoutY="452.0" prefHeight="26.0" prefWidth="420.0"/>
-        <Button fx:id="selectOutputBtn" layoutX="143.0" layoutY="413.0" mnemonicParsing="false"
-                onAction="#onSelectOutputButton" text="Select Output Directoty"/>
-        <Label layoutX="143.0" layoutY="377.0" text="Press the select button to enter the output directory:"/>
-        <Label layoutX="143.0" layoutY="135.0" text="Select type of file for analysis "/>
-        <ChoiceBox fx:id="typesChoiceBox" layoutX="146.0" layoutY="153.0" prefWidth="150.0"/>
-        <Button layoutX="882.0" layoutY="265.0" mnemonicParsing="false" onAction="#onLoadFilesButton" text="Load"/>
-        <Label layoutX="882.0" layoutY="238.0" text="Load file(s)"/>
-    </children>
+<AnchorPane fx:id="loadPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+   <children>
+      <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <menus>
+            <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="menu" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <CheckMenuItem mnemonicParsing="false" text="Autosave" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
+               <items>
+                  <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject"
+                            styleClass="menuItem"
+                            text="Load Project"/>
+                  <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
+                            styleClass="menuItem" text="Configurations"/>
+                  <MenuItem fx:id="menuItemScene3" mnemonicParsing="false" onAction="#getToResults"
+                            styleClass="menuItem" text="Results"/>
+                  <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
+                            styleClass="menuItem" text="Scene 4"/>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" styleClass="menu" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" styleClass="menuItem" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TextField fx:id="txtFieldApp" layoutX="143.0" layoutY="304.0" prefHeight="26.0" prefWidth="420.0" />
+      <Button fx:id="selectAppBtn" layoutX="143.0" layoutY="265.0" mnemonicParsing="false" onAction="#onSelectApplicationButton" text="Select Application" />
+      <Label layoutX="143.0" layoutY="229.0" text="Press the select button to enter the application path:" />
+      <TextField fx:id="txtFieldOutput" layoutX="143.0" layoutY="452.0" prefHeight="26.0" prefWidth="420.0" />
+      <Button fx:id="selectOutputBtn" layoutX="143.0" layoutY="413.0" mnemonicParsing="false" onAction="#onSelectOutputButton" text="Select Output Directoty" />
+      <Label layoutX="143.0" layoutY="377.0" text="Press the select button to enter the output directory:" />
+      <Label layoutX="143.0" layoutY="135.0" text="Select type of file for analysis " />
+      <ChoiceBox fx:id="typesChoiceBox" layoutX="146.0" layoutY="153.0" prefWidth="150.0" />
+      <Button layoutX="882.0" layoutY="265.0" mnemonicParsing="false" onAction="#onLoadFilesButton" text="Load" />
+      <Label layoutX="882.0" layoutY="238.0" text="Load file(s)" />
+   </children>
 </AnchorPane>
