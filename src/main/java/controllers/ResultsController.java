@@ -53,27 +53,49 @@ public class ResultsController extends GeneraMethodsController implements Initia
 
         TreeItem<String> rootItem = new TreeItem<>("Root", new ImageView(packageIcon));
 
-        TreeItem<String> packageItem = new TreeItem<>("Package", new ImageView(packageIcon));
-        TreeItem<String> fileItem = new TreeItem<>("Java File", new ImageView(fileIcon));
-
         HelperMethods helperMethods = new HelperMethods();
-        List<String> methodNames = new ArrayList<>();
+
+        List<String> packageNames = new ArrayList<>();
         try {
-            methodNames = helperMethods.displayFilesWithSpecificExt("-secsum");
+            packageNames = helperMethods.getPackageNames();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        for (String methodName: methodNames) {
-            TreeItem<String> methodItem = new TreeItem<>(methodName, new ImageView(methodIcon));
-            fileItem.getChildren().addAll(methodItem);
+        List<String> classNames = new ArrayList<>();
+        try {
+            classNames = helperMethods.getClassAndPackageNames();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-//        TreeItem<String> methodItem = new TreeItem<>("Java Method", new ImageView(methodIcon));
 
-//        fileItem.getChildren().addAll(methodItem);
-        packageItem.getChildren().addAll(fileItem);
+        List<String> methodNames = new ArrayList<>();
+        try {
+            methodNames = helperMethods.getMethodAndClassNames();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        rootItem.getChildren().addAll(packageItem);
+        for (String packageName : packageNames) {
+            TreeItem<String> packageItem = new TreeItem<>(packageName, new ImageView(packageIcon));
+            rootItem.getChildren().addAll(packageItem);
+
+            for (String classAndPackageName : classNames) {
+                String className = classAndPackageName.split("\\.")[1];
+                if (packageName.equals(classAndPackageName.split("\\.")[0])) {
+                    TreeItem<String> classItem = new TreeItem<>(className, new ImageView(fileIcon));
+                    packageItem.getChildren().addAll(classItem);
+
+                    for (String methodName : methodNames) {
+                        if (className.equals(methodName.split("_")[0]) && methodName.contains("_")) {
+                            TreeItem<String> methodItem =
+                                    new TreeItem<>(methodName.substring(className.length() + 1), new ImageView(methodIcon));
+                            classItem.getChildren().addAll(methodItem);
+                        }
+                    }
+                }
+            }
+        }
 
 //        myTreeView.setShowRoot(false);    // for not showing the root
         myTreeView.setRoot(rootItem);
