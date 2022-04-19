@@ -4,6 +4,7 @@ import controllers.helpers.HelperMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -14,18 +15,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ResultsController extends GeneraMethodsController implements Initializable {
 
     @FXML
+    private TextArea myTextArea;
+
+    @FXML
     private AnchorPane resultsPane;
 
     @FXML
-    private Label myLabel;
-
-    @FXML
     private TreeView<String> myTreeView;
+
+    private HelperMethods helperMethods = null;
 
     /**
      * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
@@ -37,8 +41,31 @@ public class ResultsController extends GeneraMethodsController implements Initia
     public void selectItem() {
         TreeItem<String> item = myTreeView.getSelectionModel().getSelectedItem();
 
-        if (item != null)
-            myLabel.setText(item.getValue());
+        try {
+            helperMethods = new HelperMethods();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (item != null) {
+            if (item.getParent() == null) {
+                myTextArea.setText(item.getValue());
+            } else {
+                if (item.getParent().getParent() != null
+                        && !Objects.equals(item.getParent().getParent().getValue(), "Root")) {
+                    assert helperMethods != null;
+                    StringBuilder br = helperMethods.readSecsumFile(item.getParent().getParent().getValue() + '.'
+                            + item.getParent().getValue() + '_'
+                            + item.getValue(), true);
+                    myTextArea.setText(br.toString());
+                } else if (item.getParent().getParent() != null
+                        && Objects.equals(item.getParent().getParent().getValue(), "Root")) {
+                    StringBuilder br = helperMethods.readSecsumFile(item.getParent().getValue() + '.'
+                            + item.getValue() + ".secsum", false);
+                    myTextArea.setText(br.toString());
+                }
+            }
+        }
     }
 
     @Override
@@ -53,10 +80,16 @@ public class ResultsController extends GeneraMethodsController implements Initia
 
         TreeItem<String> rootItem = new TreeItem<>("Root", new ImageView(packageIcon));
 
-        HelperMethods helperMethods = new HelperMethods();
+        try {
+            helperMethods = new HelperMethods();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         List<String> packageNames = new ArrayList<>();
         try {
+            assert helperMethods != null;
             packageNames = helperMethods.getPackageNames();
         } catch (IOException e) {
             e.printStackTrace();

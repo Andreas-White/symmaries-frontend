@@ -8,7 +8,7 @@ public class TestHelperMethods {
     public static void main(String[] args) throws IOException {
         HelperMethods helperMethods = new HelperMethods();
 
-        List<String> detailedSecsumFiles = helperMethods.displaySecsumFiles();
+        List<String> detailedSecsumFiles = helperMethods.displaySecsumFiles(".secsum");
 
         List<String> newDetailedSecsumFiles = detailedSecsumFiles.stream()
                 .map(str -> str.split("\\.")[str.split("\\.").length -2]).toList();
