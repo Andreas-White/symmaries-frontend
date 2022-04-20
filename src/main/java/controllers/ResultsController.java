@@ -3,7 +3,6 @@ package controllers;
 import controllers.helpers.HelperMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -13,12 +12,13 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ResultsController extends GeneraMethodsController implements Initializable {
+
+    private HelperMethods helperMethods = null;
 
     @FXML
     private TextArea myTextArea;
@@ -29,8 +29,6 @@ public class ResultsController extends GeneraMethodsController implements Initia
     @FXML
     private TreeView<String> myTreeView;
 
-    private HelperMethods helperMethods = null;
-
     /**
      * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
      */
@@ -38,6 +36,9 @@ public class ResultsController extends GeneraMethodsController implements Initia
         logout(resultsPane);
     }
 
+    /**
+     * Implements the functionality of selected tree item, in order to display the files' context
+     */
     public void selectItem() {
         TreeItem<String> item = myTreeView.getSelectionModel().getSelectedItem();
 
@@ -48,26 +49,28 @@ public class ResultsController extends GeneraMethodsController implements Initia
         }
 
         if (item != null) {
-            if (item.getParent() == null) {
-                myTextArea.setText(item.getValue());
-            } else {
-                if (item.getParent().getParent() != null
-                        && !Objects.equals(item.getParent().getParent().getValue(), "Root")) {
-                    assert helperMethods != null;
-                    StringBuilder br = helperMethods.readSecsumFile(item.getParent().getParent().getValue() + '.'
-                            + item.getParent().getValue() + '_'
-                            + item.getValue(), true);
-                    myTextArea.setText(br.toString());
-                } else if (item.getParent().getParent() != null
-                        && Objects.equals(item.getParent().getParent().getValue(), "Root")) {
-                    StringBuilder br = helperMethods.readSecsumFile(item.getParent().getValue() + '.'
-                            + item.getValue() + ".secsum", false);
-                    myTextArea.setText(br.toString());
-                }
+            if (item.getParent().getParent() != null    // Case where the tree item is referring to a method
+                    && !Objects.equals(item.getParent().getParent().getValue(), "Root")) {
+                assert helperMethods != null;
+                StringBuilder br = helperMethods.readSecsumFile(item.getParent().getParent().getValue() + '.'
+                        + item.getParent().getValue() + '_'
+                        + item.getValue(), true);
+                myTextArea.setText(br.toString());
+            } else if (item.getParent().getParent() != null    // Case where the tree item is referring to a class
+                    && Objects.equals(item.getParent().getParent().getValue(), "Root")) {
+                StringBuilder br = helperMethods.readSecsumFile(item.getParent().getValue() + '.'
+                        + item.getValue() + ".secsum", false);
+                myTextArea.setText(br.toString());
             }
         }
     }
 
+    /**
+     * Initialize the tree structure with tree items on pane load
+     *
+     * @param url            default value
+     * @param resourceBundle default value
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         URL packageIconLocation = getClass().getResource("/images/package_icon.png");
@@ -86,40 +89,21 @@ public class ResultsController extends GeneraMethodsController implements Initia
             e.printStackTrace();
         }
 
+        List<String> packageNames = helperMethods.getPackageNames();
+        List<String> classNames = helperMethods.getClassAndPackageNames();
+        List<String> methodNames = helperMethods.getMethodAndClassNames();
 
-        List<String> packageNames = new ArrayList<>();
-        try {
-            assert helperMethods != null;
-            packageNames = helperMethods.getPackageNames();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        List<String> classNames = new ArrayList<>();
-        try {
-            classNames = helperMethods.getClassAndPackageNames();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        List<String> methodNames = new ArrayList<>();
-        try {
-            methodNames = helperMethods.getMethodAndClassNames();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (String packageName : packageNames) {
+        for (String packageName : packageNames) { // Create package tree items
             TreeItem<String> packageItem = new TreeItem<>(packageName, new ImageView(packageIcon));
             rootItem.getChildren().addAll(packageItem);
 
-            for (String classAndPackageName : classNames) {
+            for (String classAndPackageName : classNames) { // Create class tree items
                 String className = classAndPackageName.split("\\.")[1];
                 if (packageName.equals(classAndPackageName.split("\\.")[0])) {
                     TreeItem<String> classItem = new TreeItem<>(className, new ImageView(fileIcon));
                     packageItem.getChildren().addAll(classItem);
 
-                    for (String methodName : methodNames) {
+                    for (String methodName : methodNames) { // Create method tree items
                         if (className.equals(methodName.split("_")[0]) && methodName.contains("_")) {
                             TreeItem<String> methodItem =
                                     new TreeItem<>(methodName.substring(className.length() + 1), new ImageView(methodIcon));
@@ -130,7 +114,7 @@ public class ResultsController extends GeneraMethodsController implements Initia
             }
         }
 
-//        myTreeView.setShowRoot(false);    // for not showing the root
+        myTreeView.setShowRoot(false);    // for not showing the root
         myTreeView.setRoot(rootItem);
     }
 }

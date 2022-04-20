@@ -16,6 +16,11 @@ import java.util.ResourceBundle;
 
 public class HomeController extends GeneraMethodsController implements Initializable {
 
+    private final String[] applicationTypes = {"Android Application", "Jar Application", "Java Project"};
+    FileChooser.ExtensionFilter extensionFilter;
+    private boolean isFile = false;
+    private boolean isOutput = false;
+
     @FXML
     private AnchorPane loadPane;
 
@@ -27,11 +32,6 @@ public class HomeController extends GeneraMethodsController implements Initializ
 
     @FXML
     private ChoiceBox<String> typesChoiceBox;
-
-    private final String[] applicationTypes = {"Android Application", "Jar Application", "Java Project"};
-    FileChooser.ExtensionFilter extensionFilter;
-    private boolean isFile = false;
-    private boolean isOutput = false;
 
     private String applicationPath;
     private String outputDirectoryPath;

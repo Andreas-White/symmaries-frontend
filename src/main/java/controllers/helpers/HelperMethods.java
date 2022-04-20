@@ -1,7 +1,6 @@
 package controllers.helpers;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,15 +22,20 @@ public class HelperMethods {
     public HelperMethods() throws IOException {
     }
 
-    public List<String> displaySecsumFiles(String fileExt)
-            throws IOException {
+    /**
+     * Reads all the files in directory according to the specified file extension
+     *
+     * @param fileExt the type of file extension of the files to be displayed
+     * @return a list of strings representing all the files in the directory
+     */
+    public List<String> displaySecsumFiles(String fileExt) {
 
         Path path = Paths.get(DEFAULT_PATH);
         if (!Files.isDirectory(path)) {
             throw new IllegalArgumentException("Path must be a directory!");
         }
 
-        List<String> result;
+        List<String> result = new ArrayList<>();
 
         try (Stream<Path> walk = Files.walk(path)) {
             result = walk
@@ -39,11 +43,19 @@ public class HelperMethods {
                     .map(Path::toString)
                     .filter(f -> f.endsWith(fileExt))
                     .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return result;
     }
 
+    /**
+     * Reads the context of the file, so it can be displayed
+     * @param fileName a string representing the name of the file
+     * @param isMethod a boolean value to check if it is a method or class
+     * @return a StringBuilder object containing the context of the file
+     */
     public StringBuilder readSecsumFile(String fileName, boolean isMethod) {
 
         String fullPathFile = isMethod ?
@@ -73,12 +85,21 @@ public class HelperMethods {
         return builder;
     }
 
-    public List<String> getMethodAndClassNames() throws IOException {
+    /**
+     * Distinguish the method and class names from the full path of the file
+     * @return a list of strings representing the method and class names
+     */
+    public List<String> getMethodAndClassNames() {
         return secsumFiles.stream()
                 .map(str -> str.split("\\.")[str.split("\\.").length - 2]).toList();
+
     }
 
-    public List<String> getClassAndPackageNames() throws IOException {
+    /**
+     * Distinguish the class and package names from the full path of the file
+     * @return a list of strings representing the class and package names
+     */
+    public List<String> getClassAndPackageNames() {
         List<String> reducedResult = new ArrayList<>();
 
         for (String s : secsumFiles) {
@@ -91,7 +112,11 @@ public class HelperMethods {
                 .filter(s -> !s.contains("_")).toList();
     }
 
-    public List<String> getPackageNames() throws IOException {
+    /**
+     * Distinguish the package names from the full path of the file
+     * @return a list of strings package names
+     */
+    public List<String> getPackageNames() {
 
         List<String> newResults = secsumFiles.stream()
                 .map(str -> str.split("\\.")[str.split("\\.").length - 3]).toList();

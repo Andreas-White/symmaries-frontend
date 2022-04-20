@@ -29,7 +29,7 @@ public class GeneraMethodsController {
     private boolean isJavaProjectDirectory;
 
     @FXML
-    private MenuItem menuItemLogin, menuItemConfig, menuItemScene3, menuItemScene4;
+    private MenuItem menuItemLogin, menuItemConfig, menuItemResults, menuItemScene4, menuItemAbout;
 
     public GeneraMethodsController() {
     }
@@ -161,12 +161,12 @@ public class GeneraMethodsController {
     }
 
     /**
-     * To be implemented
+     * Gets to the Results pane
      */
     @FXML
     public void getToResults() {
         String fxmlPath = "/fxml/results.fxml";
-        initialiseStageFromMenuItem(fxmlPath, menuItemScene3);
+        initialiseStageFromMenuItem(fxmlPath, menuItemResults);
     }
 
     /**
@@ -176,6 +176,15 @@ public class GeneraMethodsController {
     public void getToScene4() {
         String fxmlPath = "/fxml/scene4.fxml";
         initialiseStageFromMenuItem(fxmlPath, menuItemScene4);
+    }
+
+    /**
+     * Gets to the Results pane
+     */
+    @FXML
+    public void getToAbout() {
+        String fxmlPath = "/fxml/help.fxml";
+        initialiseStageFromMenuItem(fxmlPath, menuItemAbout);
     }
 
     /**
