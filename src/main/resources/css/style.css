@@ -3,3 +3,31 @@
     -fx-font-family: "Lucida Console";
     -fx-text-fill: #675B50FF;
 }
+
+.table-view {
+    -fx-font-size: 15;
+}
+
+.statement {
+    -fx-font-weight: bold;
+}
+
+.statement-header {
+    -fx-font-size: 14;
+}
+
+.text-title-sm {
+    -fx-font-size: 14;
+    -fx-font-style: italic;
+    -fx-text-fill: #61ab61;
+}
+
+.text-title {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #61ab61;
+}
+
+.text-paragraph {
+    -fx-font-size: 14;
+}

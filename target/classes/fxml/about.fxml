@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+<AnchorPane fx:id="helpPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.help_controllers.AboutController">
+    <MenuBar layoutX="-1.0" prefHeight="26.0" prefWidth="600.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0">
+        <menus>
+            <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="menu" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="New"/>
+                    <MenuItem mnemonicParsing="false" text="Save"/>
+                    <CheckMenuItem mnemonicParsing="false" text="Autosave"/>
+                    <SeparatorMenuItem mnemonicParsing="false"/>
+                    <MenuItem mnemonicParsing="false" onAction="#onLogoutMenuClick" styleClass="menuItem" text="Close"/>
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" styleClass="menu" text="Scenes">
+                <items>
+                    <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#getToLoadProject"
+                              styleClass="menuItem" text="Load Project"/>
+                    <MenuItem fx:id="menuItemConfig" mnemonicParsing="false" onAction="#getToConfig"
+                              styleClass="menuItem" text="Configurations"/>
+                    <MenuItem fx:id="menuItemResults" mnemonicParsing="false" onAction="#getToResults"
+                              styleClass="menuItem" text="Results"/>
+                    <MenuItem fx:id="menuItemScene4" mnemonicParsing="false" onAction="#getToScene4"
+                              styleClass="menuItem" text="Scene 4"/>
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" styleClass="menu" text="Help">
+                <items>
+                    <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#getToAbout" styleClass="menuItem"
+                              text="About"/>
+                    <MenuItem fx:id="menuItemStatements" mnemonicParsing="false" onAction="#getToStatements"
+                              styleClass="menuItem" text="Statements"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <RadioButton fx:id="radioBtn1" layoutX="46.0" layoutY="80.0" mnemonicParsing="false" onAction="#displayText"
+                 text="Presentation">
+        <toggleGroup>
+            <ToggleGroup fx:id="helpText"/>
+        </toggleGroup>
+        <font>
+            <Font name="System Bold" size="14.0"/>
+        </font>
+    </RadioButton>
+    <RadioButton fx:id="radioBtn2" layoutX="46.0" layoutY="130.0" mnemonicParsing="false" onAction="#displayText"
+                 text="Basic Work-flow" toggleGroup="$helpText">
+        <font>
+            <Font name="System Bold" size="14.0"/>
+        </font>
+    </RadioButton>
+    <RadioButton fx:id="radioBtn3" layoutX="46.0" layoutY="180.0" mnemonicParsing="false" onAction="#displayText"
+                 text="Preliminary Notations" toggleGroup="$helpText">
+        <font>
+            <Font name="System Bold" size="14.0"/>
+        </font>
+    </RadioButton>
+    <ScrollPane layoutX="563.0" layoutY="72.0" prefHeight="638.0" prefWidth="572.0">
+        <content>
+            <TextFlow fx:id="myTextFlow" prefHeight="635.0" prefWidth="560.0" textAlignment="JUSTIFY">
+                <padding>
+                    <Insets bottom="7.0" left="5.0" right="10.0" top="10.0"/>
+                </padding>
+            </TextFlow>
+        </content>
+    </ScrollPane>
+    <ImageView fx:id="myImageView" fitHeight="150.0" fitWidth="465.0" layoutX="46.0" layoutY="467.0" pickOnBounds="true"
+               preserveRatio="true"/>
+</AnchorPane>

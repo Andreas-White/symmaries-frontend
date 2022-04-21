@@ -37,6 +37,9 @@
                         <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#getToAbout"
                                   styleClass="menuItem" text="About"
                         />
+                        <MenuItem fx:id="menuItemStatements" mnemonicParsing="false" onAction="#getToStatements"
+                                  styleClass="menuItem"
+                                  text="Statements"/>
                     </items>
                 </Menu>
             </menus>
