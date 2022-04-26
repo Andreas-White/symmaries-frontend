@@ -44,16 +44,16 @@ public class ApplicationStatsHelper {
 	public String exportApplicationResults(String outputPath, String targetPath) {
 		String out = "\n\n\n\n\n\n\n\n\n\n*******************************\n" + "Application " + applicationName + "\n";
 		out += "This application is " + (isSecureApplicationBasedonSCGS()? "SECURE" : "INSECURE") + " according to SCGS\n";
-		out += "The Total Number of Methods: " + "\n";
-		out += "Number of Processed Methods: " + this.processedMethodsList.size() + "\n";
-		out += "Number of Skipped Methods: " + this.skippedMethodsList.size() + "\n";
+		out += "The Total Number of MethodObject: " + "\n";
+		out += "Number of Processed MethodObject: " + this.processedMethodsList.size() + "\n";
+		out += "Number of Skipped MethodObject: " + this.skippedMethodsList.size() + "\n";
 		if (skippedMethodsList.size() > 0) {
-			out += "List of Skipped Methods:\n ";
+			out += "List of Skipped MethodObject:\n ";
 			for (String method : skippedMethodsList)
 				out += method + "\n ";
 		} else
 			out += "All the methods have been processed!";
-		out += "\nList of processed Methods:\n ";
+		out += "\nList of processed MethodObject:\n ";
 		for (String methodName : this.processedMethodsList) {
 			for (String checkpoint : methodsStatsMap.get(methodName).checkpointGuardMaps.keySet())
 				out += checkpoint + " : " + methodsStatsMap.get(methodName).checkpointGuardMaps.get(checkpoint)

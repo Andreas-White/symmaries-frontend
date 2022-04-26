@@ -51,13 +51,13 @@ public class SymmariesResultsHelper {
 			for (String pack : usedPackages)
 				output += pack + "\n";
 			// Utils.log(this.getClass(),output);
-			Utils.writeTextFile(directory + targetFileName + "Packages.txt", output);
+			Utils.writeTextFile(directory + targetFileName + "PackageObject.txt", output);
 			output = "";
 			usedMethods.sort(null);
 			for (String method : usedMethods)
 				output += method + "\n";
 			// Utils.log(this.getClass(),output);
-			Utils.writeTextFile(directory + targetFileName + "Methods.txt", output);
+			Utils.writeTextFile(directory + targetFileName + "MethodObject.txt", output);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

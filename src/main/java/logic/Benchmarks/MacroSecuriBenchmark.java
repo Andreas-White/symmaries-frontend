@@ -57,7 +57,7 @@ public class MacroSecuriBenchmark extends SymmariesResultsHelper {
 
 	public void writeApplicationSizeStatistics(File jarRootDirectory) {
 		if (jarRootDirectory.exists()) {
-			String applicationSizeInfo = "Application;Size;number Of classes;number Of ThirdParty Methods;Number Of Method\n";
+			String applicationSizeInfo = "Application;Size;number Of classes;number Of ThirdParty MethodObject;Number Of Method\n";
 			for (File jarfile : Utils.getFilesOfTypes(jarRootDirectory.getAbsolutePath(), new String[] {".jar",".war"})) {
 				String outputSubdirectory = jarfile.getAbsolutePath().replaceAll(inputPath, "");
 				String jarContentPath = outputPath

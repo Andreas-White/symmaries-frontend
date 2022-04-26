@@ -31,8 +31,8 @@ public class GeneraMethodsController {
     @FXML
     private MenuItem menuItemLogin, menuItemConfig, menuItemResults, menuItemScene4, menuItemAbout , menuItemStatements;
 
-    public GeneraMethodsController() {
-    }
+//    public GeneraMethodsController() {
+//    }
 
     public GraphicalUIHelper getGraphicalUIHelper() {
         return graphicalUIHelper;

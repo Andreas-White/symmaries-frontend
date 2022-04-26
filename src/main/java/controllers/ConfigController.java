@@ -11,6 +11,7 @@ import java.io.File;
 
 public class ConfigController extends GeneraMethodsController {
 
+    private final String SYMMARIES_PATH = "C:\\Users\\PC\\Desktop\\Project_Degree\\samples\\symmaries\\JisymCompiler.jar";
     private String sourcesAndSinksFilePath;
     private String secstubsFilePath;
     int methodSkipParameter;
@@ -22,7 +23,7 @@ public class ConfigController extends GeneraMethodsController {
     private TextField txtFieldSourcesAndSinks, txtFieldSecstubsFile;
 
     @FXML
-    private RadioButton exceptionsRadBtn, taintRadBtn;
+    private RadioButton exceptionsRadBtn, taintRadBtn, expConfidentialityRadBtn, impConfidentialityRadBtn;
 
     @FXML
     private Slider parameterSlider;
@@ -96,17 +97,38 @@ public class ConfigController extends GeneraMethodsController {
     }
 
     /**
+     * Checks if the Explicit Confidentiality radio button is selected
+     *
+     * @return true if it is selected
+     */
+    public boolean onExplicitConfidentialitySelection() {
+        return expConfidentialityRadBtn.isSelected();
+    }
+
+    /**
+     * Checks if the Implicit Confidentiality radio button is selected
+     *
+     * @return true if it is selected
+     */
+    public boolean onImplicitConfidentialitySelection() {
+        return impConfidentialityRadBtn.isSelected();
+    }
+
+    /**
      * Sets sources and sinks file path, secstubs file path, method skip parameter, exception and taint. Then runs
      * Input Generator
      */
     public void onInputGeneratorButton() {
         getGraphicalUIHelper().setSourcesAndSinksPath(sourcesAndSinksFilePath);
         getGraphicalUIHelper().setSecsumFilePath(secstubsFilePath);
-        getGraphicalUIHelper().setSymmariesPath("C:\\Users\\PC\\Desktop\\Project_Degree\\samples\\symmaries\\JisymCompiler.jar");
+        getGraphicalUIHelper().setSymmariesPath(SYMMARIES_PATH);
         getGraphicalUIHelper().setMethodSkipParameter(getMethodSkipParameter());
         getGraphicalUIHelper().setExceptionEnabeled(onExceptionSelected());
         getGraphicalUIHelper().setTaintCheckingEnabeled(onTaintSelection());
+        getGraphicalUIHelper().setExplicitConfEnabled(onExplicitConfidentialitySelection());
+        getGraphicalUIHelper().setImplicitConfEnabled(onImplicitConfidentialitySelection());
         getGraphicalUIHelper().runInputGenerator();
+//        getGraphicalUIHelper().runSymmaries();
     }
 
     /**

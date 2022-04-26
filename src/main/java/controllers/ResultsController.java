@@ -1,5 +1,8 @@
 package controllers;
 
+import controllers.entities.ClassObject;
+import controllers.entities.MethodObject;
+import controllers.entities.PackageObject;
 import controllers.helpers.HelperMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +43,7 @@ public class ResultsController extends GeneraMethodsController implements Initia
      * Implements the functionality of selected tree item, in order to display the files' context
      */
     public void selectItem() {
+        long startTime = System.currentTimeMillis();
         TreeItem<String> item = myTreeView.getSelectionModel().getSelectedItem();
 
         try {
@@ -48,21 +52,40 @@ public class ResultsController extends GeneraMethodsController implements Initia
             e.printStackTrace();
         }
 
+        List<PackageObject> packageObjectList = helperMethods.getAllPackages();
+
         if (item != null) {
             if (item.getParent().getParent() != null    // Case where the tree item is referring to a method
                     && !Objects.equals(item.getParent().getParent().getValue(), "Root")) {
-                assert helperMethods != null;
-                StringBuilder br = helperMethods.readSecsumFile(item.getParent().getParent().getValue() + '.'
-                        + item.getParent().getValue() + '_'
-                        + item.getValue(), true);
-                myTextArea.setText(br.toString());
+                for (PackageObject packageObject : packageObjectList) {
+                    if (item.getParent().getParent().getValue().equals(packageObject.getName())) {
+                        for (ClassObject classObject : packageObject.getClassesList()) {
+                            if (item.getParent().getValue().equals(classObject.getName())) {
+                                for (MethodObject methodObject : classObject.getMethodsList()) {
+                                    if (item.getValue().equals(methodObject.getName())) {
+                                        myTextArea.setText(methodObject.getContent());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             } else if (item.getParent().getParent() != null    // Case where the tree item is referring to a class
                     && Objects.equals(item.getParent().getParent().getValue(), "Root")) {
-                StringBuilder br = helperMethods.readSecsumFile(item.getParent().getValue() + '.'
-                        + item.getValue() + ".secsum", false);
-                myTextArea.setText(br.toString());
+                for (PackageObject packageObject : packageObjectList) {
+                    if (item.getParent().getValue().equals(packageObject.getName())) {
+                        for (ClassObject classObject : packageObject.getClassesList()) {
+                            if (item.getValue().equals(classObject.getName())) {
+                                myTextArea.setText(classObject.getContent());
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
+        System.out.println(System.currentTimeMillis() - startTime + " ms");
     }
 
     /**
@@ -89,27 +112,22 @@ public class ResultsController extends GeneraMethodsController implements Initia
             e.printStackTrace();
         }
 
-        List<String> packageNames = helperMethods.getPackageNames();
-        List<String> classNames = helperMethods.getClassAndPackageNames();
-        List<String> methodNames = helperMethods.getMethodAndClassNames();
+        List<PackageObject> packageObjectList = helperMethods.getAllPackages();
 
-        for (String packageName : packageNames) { // Create package tree items
-            TreeItem<String> packageItem = new TreeItem<>(packageName, new ImageView(packageIcon));
+        // Create package tree items
+        for (PackageObject packageObject : packageObjectList) {
+            TreeItem<String> packageItem = new TreeItem<>(packageObject.getName(), new ImageView(packageIcon));
             rootItem.getChildren().addAll(packageItem);
 
-            for (String classAndPackageName : classNames) { // Create class tree items
-                String className = classAndPackageName.split("\\.")[1];
-                if (packageName.equals(classAndPackageName.split("\\.")[0])) {
-                    TreeItem<String> classItem = new TreeItem<>(className, new ImageView(fileIcon));
-                    packageItem.getChildren().addAll(classItem);
+            // Create class tree items
+            for (ClassObject classObject : packageObject.getClassesList()) {
+                TreeItem<String> classItem = new TreeItem<>(classObject.getName(), new ImageView(fileIcon));
+                packageItem.getChildren().addAll(classItem);
 
-                    for (String methodName : methodNames) { // Create method tree items
-                        if (className.equals(methodName.split("_")[0]) && methodName.contains("_")) {
-                            TreeItem<String> methodItem =
-                                    new TreeItem<>(methodName.substring(className.length() + 1), new ImageView(methodIcon));
-                            classItem.getChildren().addAll(methodItem);
-                        }
-                    }
+                // Create method tree items
+                for (MethodObject methodObject : classObject.getMethodsList()) {
+                    TreeItem<String> methodItem = new TreeItem<>(methodObject.getName(), new ImageView(methodIcon));
+                    classItem.getChildren().addAll(methodItem);
                 }
             }
         }

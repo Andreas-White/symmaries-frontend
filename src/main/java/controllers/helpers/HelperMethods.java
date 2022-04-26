@@ -1,5 +1,9 @@
 package controllers.helpers;
 
+import controllers.entities.ClassObject;
+import controllers.entities.MethodObject;
+import controllers.entities.PackageObject;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,7 +32,7 @@ public class HelperMethods {
      * @param fileExt the type of file extension of the files to be displayed
      * @return a list of strings representing all the files in the directory
      */
-    public List<String> displaySecsumFiles(String fileExt) {
+    private List<String> displaySecsumFiles(String fileExt) {
 
         Path path = Paths.get(DEFAULT_PATH);
         if (!Files.isDirectory(path)) {
@@ -54,9 +58,9 @@ public class HelperMethods {
      * Reads the context of the file, so it can be displayed
      * @param fileName a string representing the name of the file
      * @param isMethod a boolean value to check if it is a method or class
-     * @return a StringBuilder object containing the context of the file
+     * @return a String object containing the context of the file
      */
-    public StringBuilder readSecsumFile(String fileName, boolean isMethod) {
+    private String readSecsumFile(String fileName, boolean isMethod) {
 
         String fullPathFile = isMethod ?
                 secsumFiles
@@ -82,24 +86,23 @@ public class HelperMethods {
             e.printStackTrace();
         }
 
-        return builder;
+        return builder.toString();
     }
 
     /**
      * Distinguish the method and class names from the full path of the file
      * @return a list of strings representing the method and class names
      */
-    public List<String> getMethodAndClassNames() {
+    private List<String> getMethodAndClassNames() {
         return secsumFiles.stream()
                 .map(str -> str.split("\\.")[str.split("\\.").length - 2]).toList();
-
     }
 
     /**
      * Distinguish the class and package names from the full path of the file
      * @return a list of strings representing the class and package names
      */
-    public List<String> getClassAndPackageNames() {
+    private List<String> getClassAndPackageNames() {
         List<String> reducedResult = new ArrayList<>();
 
         for (String s : secsumFiles) {
@@ -116,12 +119,67 @@ public class HelperMethods {
      * Distinguish the package names from the full path of the file
      * @return a list of strings package names
      */
-    public List<String> getPackageNames() {
+    private List<String> getPackageNames() {
 
         List<String> newResults = secsumFiles.stream()
                 .map(str -> str.split("\\.")[str.split("\\.").length - 3]).toList();
 
         Set<String> uniqueNames = new HashSet<>(newResults);
         return new ArrayList<>(uniqueNames);
+    }
+
+    public List<PackageObject> getAllPackages() {
+        List<PackageObject> packageObjectList = new ArrayList<>();
+
+        List<String> packageNames = getPackageNames();
+        List<String> classNames = getClassAndPackageNames();
+        List<String> methodNames = getMethodAndClassNames();
+
+        for (String packageName : packageNames) { // Create package object
+            PackageObject packageObject = new PackageObject();
+            packageObject.setName(packageName);
+
+            List<ClassObject> classObjectList = new ArrayList<>();
+
+            for (String classAndPackageName : classNames) { // Create class object
+                String className = classAndPackageName.split("\\.")[1];
+                if (packageName.equals(classAndPackageName.split("\\.")[0])) {
+
+                    ClassObject classObject = new ClassObject();
+                    classObject.setName(className);
+                    classObject.setContent(
+                            readSecsumFile(
+                                    packageObject.getName() +
+                                            "." +
+                                            classObject.getName() +
+                                            ".secsum",
+                                    false));
+
+                    List<MethodObject> methodObjectList = new ArrayList<>();
+
+                    for (String methodName : methodNames) { // Create method object
+                        if (className.equals(methodName.split("_")[0]) && methodName.contains("_")) {
+
+                            MethodObject methodObject = new MethodObject();
+                            methodObject.setName(methodName.substring(className.length() + 1));
+                            methodObject.setContent(
+                                    readSecsumFile(
+                                            packageObject.getName() +
+                                                    '.' + classObject.getName() +
+                                                    '_' + methodObject.getName(),
+                                            true)
+                            );
+
+                            methodObjectList.add(methodObject);
+                        }
+                    }
+                    classObject.setMethodsList(methodObjectList);
+                    classObjectList.add(classObject);
+                }
+            }
+            packageObject.setClassesList(classObjectList);
+            packageObjectList.add(packageObject);
+        }
+        return packageObjectList;
     }
 }
