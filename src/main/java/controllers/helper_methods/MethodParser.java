@@ -7,29 +7,31 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MethodParser {
 
-    private static final String FILE_PATH = "C:\\Users\\PC\\Downloads\\testjar\\test\\Backend.java";
+    public void getMethods(
+            List<String> methodNames,
+            List<String> methodContext,
+            String javaFile) throws FileNotFoundException {
 
-    public static void main(String[] args) throws Exception {
-
-        CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(FILE_PATH));
+        CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(javaFile));
 
         VoidVisitor<Void> methodNameVisitor = new MethodNamePrinter();
         methodNameVisitor.visit(cu, null);
-        List<String> methodNames = new ArrayList<>();
+        List<String> methods = new ArrayList<>();
         VoidVisitor<List<String>> methodNameCollector = new MethodNameCollector();
-        methodNameCollector.visit(cu, methodNames);
+        methodNameCollector.visit(cu, methods);
         AtomicInteger counter = new AtomicInteger();
-        methodNames.forEach(n -> {
+        methods.forEach(n -> {
             if (counter.get() % 2 == 0)
-                System.out.println("Method Name Collected: " + n);
+                methodNames.add(n);
             else
-                System.out.println("Method Context Collected: " + n);
+                methodContext.add(n);
             counter.getAndIncrement();
         });
     }

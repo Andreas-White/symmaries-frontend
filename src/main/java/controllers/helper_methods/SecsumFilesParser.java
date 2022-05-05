@@ -15,6 +15,7 @@ import java.util.Set;
 public class SecsumFilesParser {
 
     private final DirectoryReader reader = new DirectoryReader();
+    // To be replaced with "outputDirectoryPath + Meth"
     private final String DEFAULT_PATH = "C:\\Users\\PC\\Desktop\\Project_Degree\\ova_files\\symmaries-ant-pr\\Examples\\RadioCRM\\Meth";
 
     private final List<String> secsumFiles = reader.displayFilesInDirectory("-secsum", DEFAULT_PATH);
@@ -131,7 +132,7 @@ public class SecsumFilesParser {
 
                             MethodObject methodObject = new MethodObject();
                             methodObject.setName(methodName.substring(className.length() + 1));
-                            methodObject.setContent(
+                            methodObject.setSecsumContent(
                                     readSecsumFile(
                                             packageObject.getName() +
                                                     '.' + classObject.getName() +

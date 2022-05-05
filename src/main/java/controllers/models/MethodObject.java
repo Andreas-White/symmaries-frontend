@@ -6,7 +6,8 @@ public class MethodObject {
 
     private String name;
     private boolean isSecure;
-    private String content;
+    private String secsumContent;
+    private String javaFileContent;
 
     public String getName() {
         return name;
@@ -24,24 +25,34 @@ public class MethodObject {
         return isSecure;
     }
 
-    public String getContent() {
-        return content;
+    public String getSecsumContent() {
+        return secsumContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setSecsumContent(String secsumContent) {
+        this.secsumContent = secsumContent;
+    }
+
+    public String getJavaFileContent() {
+        return javaFileContent;
+    }
+
+    public void setJavaFileContent(String javaFileContent) {
+        this.javaFileContent = javaFileContent;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MethodObject methodObject)) return false;
-        return isSecure() == methodObject.isSecure() && Objects.equals(getName(), methodObject.getName())
-                && Objects.equals(getContent(), methodObject.getContent());
+        if (!(o instanceof MethodObject that)) return false;
+        return isSecure() == that.isSecure() && Objects.equals(getName(),
+                that.getName()) && Objects.equals(getSecsumContent(),
+                that.getSecsumContent()) && Objects.equals(getJavaFileContent(),
+                that.getJavaFileContent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), isSecure(), getContent());
+        return Objects.hash(getName(), isSecure(), getSecsumContent(), getJavaFileContent());
     }
 }

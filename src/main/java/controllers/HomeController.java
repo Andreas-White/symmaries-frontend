@@ -33,9 +33,6 @@ public class HomeController extends GeneraMethodsController implements Initializ
     @FXML
     private ChoiceBox<String> typesChoiceBox;
 
-    private String applicationPath;
-    private String outputDirectoryPath;
-
     /**
      * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
      */
@@ -77,17 +74,17 @@ public class HomeController extends GeneraMethodsController implements Initializ
             fileChooser.getExtensionFilters().add(extensionFilter);
             file = fileChooser.showOpenDialog(stage);
             if (isRightPath(textField, file))
-                applicationPath = file.getAbsolutePath();
+                setApplicationPath(file.getAbsolutePath());
         } else if (isOutput) {
             directoryChooser.setTitle(title);
             file = directoryChooser.showDialog(stage);
             if (isRightPath(textField, file))
-                outputDirectoryPath = file.getAbsolutePath();
+                setOutputDirectoryPath(file.getAbsolutePath());
         } else {
             directoryChooser.setTitle(title);
             file = directoryChooser.showDialog(stage);
             if (isRightPath(textField, file))
-                applicationPath = file.getAbsolutePath();
+                setApplicationPath(file.getAbsolutePath());
         }
     }
 
@@ -113,13 +110,19 @@ public class HomeController extends GeneraMethodsController implements Initializ
         if (applicationType.equals(applicationTypes[0])) {
             extensionFilter = new FileChooser.ExtensionFilter("APK file", "*.apk", "*.xapk");
             setApkFile(true);
+            setJarFile(false);
+            setJavaProjectDirectory(false);
             isFile = true;
         } else if (applicationType.equals(applicationTypes[1])) {
             setJarFile(true);
+            setApkFile(false);
+            setJavaProjectDirectory(false);
             extensionFilter = new FileChooser.ExtensionFilter("Jar file", "*.jar", "*.war");
             isFile = true;
         } else if (applicationType.equals(applicationTypes[2])) {
             setJavaProjectDirectory(true);
+            setApkFile(false);
+            setJarFile(false);
             isFile = false;
         }
     }
@@ -130,8 +133,8 @@ public class HomeController extends GeneraMethodsController implements Initializ
     public void onLoadFilesButton(ActionEvent event) {
         GraphicalUIHelper graphicalUIHelper = new GraphicalUIHelper(isJarFile(),isJavaProjectDirectory(),isApkFile());
         setGraphicalUIHelper(graphicalUIHelper);
-        getGraphicalUIHelper().setInputPath(applicationPath);
-        getGraphicalUIHelper().setTargetPath(outputDirectoryPath);
+        getGraphicalUIHelper().setInputPath(getApplicationPath());
+        getGraphicalUIHelper().setTargetPath(getOutputDirectoryPath());
         getGraphicalUIHelper().loadApplicationIntoSoot();
         System.out.println("in load");
 

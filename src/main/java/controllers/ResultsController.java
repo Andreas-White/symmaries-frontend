@@ -1,9 +1,9 @@
 package controllers;
 
+import controllers.helper_methods.PackageInitialization;
 import controllers.models.ClassObject;
 import controllers.models.MethodObject;
 import controllers.models.PackageObject;
-import controllers.helper_methods.SecsumFilesParser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -21,16 +21,24 @@ import java.util.ResourceBundle;
 
 public class ResultsController extends GeneraMethodsController implements Initializable {
 
-    private SecsumFilesParser secsumFilesParser = null;
+    private final PackageInitialization packageInitialization = new PackageInitialization();
+    List<PackageObject> packageObjectList = packageInitialization.getFinalStateOfPackages(
+            this.isJarFile(),
+            this.isJavaProjectDirectory(),
+            this.isApkFile()
+    );
 
     @FXML
-    private TextArea myTextArea;
+    private TextArea myTextArea, myTextArea2;
 
     @FXML
     private AnchorPane resultsPane;
 
     @FXML
     private TreeView<String> myTreeView;
+
+    public ResultsController() throws IOException {
+    }
 
     /**
      * Implements the onClick functionality of the "Close" menuItem, by calling the logout() method
@@ -46,14 +54,6 @@ public class ResultsController extends GeneraMethodsController implements Initia
         long startTime = System.currentTimeMillis();
         TreeItem<String> item = myTreeView.getSelectionModel().getSelectedItem();
 
-        try {
-            secsumFilesParser = new SecsumFilesParser();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        List<PackageObject> packageObjectList = secsumFilesParser.getAllPackages();
-
         if (item != null) {
             if (item.getParent().getParent() != null    // Case where the tree item is referring to a method
                     && !Objects.equals(item.getParent().getParent().getValue(), "Root")) {
@@ -63,7 +63,8 @@ public class ResultsController extends GeneraMethodsController implements Initia
                             if (item.getParent().getValue().equals(classObject.getName())) {
                                 for (MethodObject methodObject : classObject.getMethodsList()) {
                                     if (item.getValue().equals(methodObject.getName())) {
-                                        myTextArea.setText(methodObject.getContent());
+                                        myTextArea.setText(methodObject.getSecsumContent());
+                                        myTextArea2.setText(methodObject.getJavaFileContent());
                                         break;
                                     }
                                 }
@@ -78,6 +79,7 @@ public class ResultsController extends GeneraMethodsController implements Initia
                         for (ClassObject classObject : packageObject.getClassesList()) {
                             if (item.getValue().equals(classObject.getName())) {
                                 myTextArea.setText(classObject.getContent());
+                                myTextArea2.setText("");
                                 break;
                             }
                         }
@@ -96,6 +98,7 @@ public class ResultsController extends GeneraMethodsController implements Initia
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         URL packageIconLocation = getClass().getResource("/images/package_icon.png");
         URL fileIconLocation = getClass().getResource("/images/java_icon.png");
         URL methodIconLocation = getClass().getResource("/images/method_icon.png");
@@ -106,15 +109,8 @@ public class ResultsController extends GeneraMethodsController implements Initia
 
         TreeItem<String> rootItem = new TreeItem<>("Root", new ImageView(packageIcon));
 
-        try {
-            secsumFilesParser = new SecsumFilesParser();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        List<PackageObject> packageObjectList = secsumFilesParser.getAllPackages();
-
         // Create package tree items
+        assert packageObjectList != null;
         for (PackageObject packageObject : packageObjectList) {
             TreeItem<String> packageItem = new TreeItem<>(packageObject.getName(), new ImageView(packageIcon));
             rootItem.getChildren().addAll(packageItem);

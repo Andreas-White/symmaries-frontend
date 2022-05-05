@@ -24,22 +24,22 @@ public class GeneraMethodsController {
     protected Stage stage;
     private static GraphicalUIHelper graphicalUIHelper;
 
-    private boolean isJarFile;
-    private boolean isApkFile;
-    private boolean isJavaProjectDirectory;
+    private static boolean isJarFile;
+    private static boolean isApkFile;
+    private static boolean isJavaProjectDirectory;
+
+    private static String applicationPath;
+    private static String outputDirectoryPath;
 
     @FXML
     private MenuItem menuItemLogin, menuItemConfig, menuItemResults, menuItemScene4, menuItemAbout , menuItemStatements;
-
-//    public GeneraMethodsController() {
-//    }
 
     public GraphicalUIHelper getGraphicalUIHelper() {
         return graphicalUIHelper;
     }
 
     public void setGraphicalUIHelper(GraphicalUIHelper graphicalUIHelper) {
-        this.graphicalUIHelper = graphicalUIHelper;
+        GeneraMethodsController.graphicalUIHelper = graphicalUIHelper;
     }
 
     public boolean isJarFile() {
@@ -64,6 +64,22 @@ public class GeneraMethodsController {
 
     public void setJavaProjectDirectory(boolean javaProjectDirectory) {
         isJavaProjectDirectory = javaProjectDirectory;
+    }
+
+    public static String getApplicationPath() {
+        return applicationPath;
+    }
+
+    public static void setApplicationPath(String applicationPath) {
+        GeneraMethodsController.applicationPath = applicationPath;
+    }
+
+    public static String getOutputDirectoryPath() {
+        return outputDirectoryPath;
+    }
+
+    public static void setOutputDirectoryPath(String outputDirectoryPath) {
+        GeneraMethodsController.outputDirectoryPath = outputDirectoryPath;
     }
 
     /**
@@ -193,7 +209,7 @@ public class GeneraMethodsController {
     @FXML
     public void getToStatements() {
         String fxmlPath = "/fxml/statements.fxml";
-        initialiseStageFromMenuItem(fxmlPath, menuItemAbout);
+        initialiseStageFromMenuItem(fxmlPath, menuItemStatements);
     }
 
     /**
