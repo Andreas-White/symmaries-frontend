@@ -1,4 +1,4 @@
-package controllers.entities;
+package controllers.models;
 
 import java.util.List;
 import java.util.Objects;

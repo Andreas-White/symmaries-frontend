@@ -1,7 +1,7 @@
 package controllers.help_controllers;
 
 import controllers.GeneraMethodsController;
-import controllers.entities.Statements;
+import controllers.models.Statements;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,57 +1,26 @@
-package controllers.helpers;
+package controllers.helper_methods;
 
-import controllers.entities.ClassObject;
-import controllers.entities.MethodObject;
-import controllers.entities.PackageObject;
+import controllers.models.ClassObject;
+import controllers.models.MethodObject;
+import controllers.models.PackageObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class HelperMethods {
+public class SecsumFilesParser {
 
+    private final DirectoryReader reader = new DirectoryReader();
     private final String DEFAULT_PATH = "C:\\Users\\PC\\Desktop\\Project_Degree\\ova_files\\symmaries-ant-pr\\Examples\\RadioCRM\\Meth";
-    private final List<String> secsumFiles = displaySecsumFiles("-secsum");
-    private final List<String> secsumClassFiles = displaySecsumFiles(".secsum");
 
-    public HelperMethods() throws IOException {
-    }
+    private final List<String> secsumFiles = reader.displayFilesInDirectory("-secsum", DEFAULT_PATH);
+    private final List<String> secsumClassFiles = reader.displayFilesInDirectory(".secsum", DEFAULT_PATH);
 
-    /**
-     * Reads all the files in directory according to the specified file extension
-     *
-     * @param fileExt the type of file extension of the files to be displayed
-     * @return a list of strings representing all the files in the directory
-     */
-    private List<String> displaySecsumFiles(String fileExt) {
-
-        Path path = Paths.get(DEFAULT_PATH);
-        if (!Files.isDirectory(path)) {
-            throw new IllegalArgumentException("Path must be a directory!");
-        }
-
-        List<String> result = new ArrayList<>();
-
-        try (Stream<Path> walk = Files.walk(path)) {
-            result = walk
-                    .filter(p -> !Files.isDirectory(p))
-                    .map(Path::toString)
-                    .filter(f -> f.endsWith(fileExt))
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+    public SecsumFilesParser() throws IOException {
     }
 
     /**

@@ -1,9 +1,9 @@
 package controllers;
 
-import controllers.entities.ClassObject;
-import controllers.entities.MethodObject;
-import controllers.entities.PackageObject;
-import controllers.helpers.HelperMethods;
+import controllers.models.ClassObject;
+import controllers.models.MethodObject;
+import controllers.models.PackageObject;
+import controllers.helper_methods.SecsumFilesParser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class ResultsController extends GeneraMethodsController implements Initializable {
 
-    private HelperMethods helperMethods = null;
+    private SecsumFilesParser secsumFilesParser = null;
 
     @FXML
     private TextArea myTextArea;
@@ -47,12 +47,12 @@ public class ResultsController extends GeneraMethodsController implements Initia
         TreeItem<String> item = myTreeView.getSelectionModel().getSelectedItem();
 
         try {
-            helperMethods = new HelperMethods();
+            secsumFilesParser = new SecsumFilesParser();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List<PackageObject> packageObjectList = helperMethods.getAllPackages();
+        List<PackageObject> packageObjectList = secsumFilesParser.getAllPackages();
 
         if (item != null) {
             if (item.getParent().getParent() != null    // Case where the tree item is referring to a method
@@ -107,12 +107,12 @@ public class ResultsController extends GeneraMethodsController implements Initia
         TreeItem<String> rootItem = new TreeItem<>("Root", new ImageView(packageIcon));
 
         try {
-            helperMethods = new HelperMethods();
+            secsumFilesParser = new SecsumFilesParser();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List<PackageObject> packageObjectList = helperMethods.getAllPackages();
+        List<PackageObject> packageObjectList = secsumFilesParser.getAllPackages();
 
         // Create package tree items
         for (PackageObject packageObject : packageObjectList) {
