@@ -6,10 +6,10 @@ import java.util.List;
 public class SynthesisConfiguratons {
 	//public String androidJarPath;
 	public String callbacks;
-	public boolean explicitConfEnabeled;
-	public boolean implicitConfEnabeled;
-	public boolean taintCheckingEnabled;
-	public String assumedSecSigsFilePath;
+	public boolean explicitConfEnabeled; //
+	public boolean implicitConfEnabeled; //
+	public boolean taintCheckingEnabled; //
+	public String assumedSecSigsFilePath; //
 	public String[] requiredClassesPaths;
 	public boolean ignoreCheckPoints;
 	public boolean monitorType = true;

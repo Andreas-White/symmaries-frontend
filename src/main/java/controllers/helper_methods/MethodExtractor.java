@@ -78,14 +78,6 @@ public class MethodExtractor {
         return classObjectDTOS;
     }
 
-//    private void deleteDirectory(File directoryToBeDeleted) {
-//        File[] allContents = directoryToBeDeleted.listFiles();
-//        assert allContents != null;
-//        for (File file : allContents) {
-//            file.delete();
-//        }
-//    }
-
     public void deleteDirectory() throws IOException {
 
         Files.walk(Path.of(EXTRACTED_JAVA_FILES_PATH))
